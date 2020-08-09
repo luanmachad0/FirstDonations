@@ -11,7 +11,11 @@ namespace FirstDonations.Models
     {
         [Key]
         public int Id { get; set; }
+        public string NamePart { get; set; }
+        public string ImagePart { get; set; }
         public Part Part { get; set; }
         public string Status { get; set; }
+        public string InterestedTeamId { get; set; }
+        public string InterestedTeamName { get; set; }
     }
 }

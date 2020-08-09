@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using FirstDonations.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using System.Security.Claims;
+using System.Collections.Generic;
+using System.Net;
 
 namespace FirstDonations.Controllers
 {
@@ -26,8 +29,30 @@ namespace FirstDonations.Controllers
         // GET: Parts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Parts.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return View(await _context.Parts.Where(p => p.OwnerTeam == userId).ToListAsync());
         }
+
+        public async Task<IActionResult> Requests(int? id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            List<Donation> ViewBagUserDonations = new List<Donation>();
+
+            var partDonations = await _context.Donations.Where(d => d.Part.Id == id).ToListAsync();
+
+            foreach (var donation in partDonations)
+            {
+                ViewBagUserDonations.Add(donation);
+            }
+            
+            return View(ViewBagUserDonations);
+        }
+
+        //public async Task<IActionResult> AcceptRequest(int id, string interestedTeamId)
+        //{
+        //    var donation = await _context.Donations.Where(d => d.Id == id && d.InterestedTeamId == interestedTeamId).FirstAsync();
+        //}
 
         // GET: Parts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -64,12 +89,15 @@ namespace FirstDonations.Controllers
             {
                 string uniqueFileName = UploadedFile(model);
 
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
                 Part part = new Part
                 {
                     Name = model.Name,
                     Area = model.Area,
                     Count = model.Count,
                     Image = uniqueFileName,
+                    OwnerTeam = userId
                 };
 
                 _context.Add(part);

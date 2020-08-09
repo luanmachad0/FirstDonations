@@ -1,0 +1,64 @@
+﻿@model IEnumerable<FirstDonations.Models.Donation>
+@{
+    ViewBag.Title = "Requests";
+}
+<div class="container">
+    <div class="modal-dialog" style="max-width:1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Requests</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Part.Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Part.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                Interested Team
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                <img src="~/img/@item.ImagePart"
+                                     width="80"
+                                     height="80"
+                                     style="border-radius: 50%;"
+                                     asp-append-version="true" />
+                            </td>
+                            <td class="pt-4">
+                                @Html.DisplayFor(modelItem => item.NamePart)
+                            </td>
+                            <td class="pt-4">
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td class="pt-4">
+                                @Html.DisplayFor(modelItem => item.InterestedTeamName)
+                            </td>
+                            <td class="pt-4">
+                                <a href="@Url.Action("AcceptRequest", "Parts", new { Id = item.Id, InterestedTeamId = item.InterestedTeamId });" class="btn btn-primary">Accept</a>
+                                <a href="@Url.Action("DeclineRequest", "Parts", new { Id = item.Id })" class="btn btn-primary">Decline</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

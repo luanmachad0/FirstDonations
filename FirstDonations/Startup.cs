@@ -30,6 +30,7 @@ namespace FirstDonations
             services.AddRazorPages();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=FirstDonations;Trusted_Connection=True;MultipleActiveResultSets=true"));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

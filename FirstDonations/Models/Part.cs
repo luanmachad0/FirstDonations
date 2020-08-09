@@ -24,6 +24,6 @@ namespace FirstDonations.Models
         [Required(ErrorMessage = "Please enter part image")]
         public string Image { get; set; }
 
-        public ApplicationUser OwnerTeam { get; set; }
+        public String OwnerTeam { get; set; }
     }
 }

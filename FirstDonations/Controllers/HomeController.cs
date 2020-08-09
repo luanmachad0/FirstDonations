@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using FirstDonations.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace FirstDonations.Controllers
 {
@@ -26,7 +27,27 @@ namespace FirstDonations.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.userId = userId;
+
             return View(await _context.Parts.ToListAsync());
+        }
+
+        public async Task<IActionResult> PartDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var part = await _context.Parts
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (part == null)
+            {
+                return NotFound();
+            }
+
+            return View(part);
         }
 
         public IActionResult Privacy()

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FirstDonations.Models.Donation>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>My Requests</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Part.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Part.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="~/img/@item.ImagePart"
+                     width="80"
+                     height="80"
+                     style="border-radius: 50%;"
+                     asp-append-version="true" />
+            </td>
+            <td class="pt-4">
+                @Html.DisplayFor(modelItem => item.NamePart)
+            </td>
+            <td class="pt-4">
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td class="pt-4">
+                <a class="fas fa-edit" asp-action="Edit" asp-route-id="@item.Id"></a> |
+                <a class="fas fa-info-circle" asp-action="Details" asp-route-id="@item.Id"></a> |
+                <a class="fas fa-trash-alt" asp-action="Delete" asp-route-id="@item.Id"></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

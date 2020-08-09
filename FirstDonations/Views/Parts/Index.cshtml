@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>My Parts</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,6 +13,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -22,33 +25,51 @@
             <th>
                 @Html.DisplayNameFor(model => model.Count)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Area)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Count)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/@item.Image"
+                         width="80"
+                         height="80"
+                         style="border-radius: 50%;"
+                         asp-append-version="true" />
+                </td>
+                <td class="pt-4">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="pt-4">
+                    @Html.DisplayFor(modelItem => item.Area)
+                </td>
+                <td class="pt-4">
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td class="pt-4">
+                    <a class="fas fa-edit" asp-action="Edit" asp-route-id="@item.Id"></a> |
+                    <a class="fas fa-info-circle" asp-action="Details" asp-route-id="@item.Id"></a> |
+                    <a class="fas fa-trash-alt pr-5" asp-action="Delete" asp-route-id="@item.Id"></a>
+                    <button class="btn-requests btn btn-primary" asp-action="Requests" data-id="@item.Id">Requests</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div id="modal" class="modal fade" role="dialog"  />
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".btn-requests").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Parts/Requests?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+}
