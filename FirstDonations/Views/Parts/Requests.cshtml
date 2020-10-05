@@ -48,8 +48,8 @@
                                 @Html.DisplayFor(modelItem => item.InterestedTeamName)
                             </td>
                             <td class="pt-4">
-                                <a href="@Url.Action("AcceptRequest", "Parts", new { Id = item.Id, InterestedTeamId = item.InterestedTeamId });" class="btn btn-primary">Accept</a>
-                                <a href="@Url.Action("DeclineRequest", "Parts", new { Id = item.Id })" class="btn btn-primary">Decline</a>
+                                <a href="@Url.Action("AcceptRequest", "Parts", new { Id = item.Id, InterestedTeamId = item.InterestedTeamId })" class="btn btn-primary">Accept</a>
+                                <a href="@Url.Action("DeclineRequest", "Parts", new { Id = item.Id,  InterestedTeamId = item.InterestedTeamId  })" class="btn btn-primary">Decline</a>
                             </td>
                         </tr>
                         }

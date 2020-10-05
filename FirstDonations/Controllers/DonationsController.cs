@@ -34,6 +34,8 @@ namespace FirstDonations.Controllers
 
                 var part = await _context.Parts.FindAsync(id);
 
+                var donatorTeamId = part.OwnerTeam;
+
                 Donation donation = new Donation
                 {
                     NamePart = part.Name,
@@ -41,7 +43,8 @@ namespace FirstDonations.Controllers
                     Part = part,
                     Status = "Requested",
                     InterestedTeamId = interestedTeamId,
-                    InterestedTeamName = interestedTeamName
+                    InterestedTeamName = interestedTeamName,
+                    DonatorTeamId = donatorTeamId
                 };
 
                 _context.Add(donation);

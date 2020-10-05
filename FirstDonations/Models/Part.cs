@@ -18,6 +18,8 @@ namespace FirstDonations.Models
         [Required(ErrorMessage = "Please choose area")]
         public string Area { get; set; }
 
+        public string Status { get; set; }
+
         [Required(ErrorMessage = "Please enter quantity")]
         public int Count { get; set; }
 

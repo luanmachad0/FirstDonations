@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using FirstDonations.Areas.Identity.Data;
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = await UserManager.GetUserAsync(User);
+}
+@if (String.IsNullOrEmpty(user.ProfileImage))
+{
+    <button class="dropbtn fas fa-user fa-1x"></button>
+}
+else
+{
+    <img src="~/img/@user.ProfileImage"
+         class="card-img-top"
+         width="210"
+         height="170"
+         asp-append-version="true" />
+}
+
+<label>@user.TeamName</label>
+<label>@user.UserName</label>
+<label>@user.TeamNumber</label>
+<label>@user.PhoneNumber</label>
+

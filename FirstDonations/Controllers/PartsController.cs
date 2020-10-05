@@ -49,10 +49,32 @@ namespace FirstDonations.Controllers
             return View(ViewBagUserDonations);
         }
 
-        //public async Task<IActionResult> AcceptRequest(int id, string interestedTeamId)
-        //{
-        //    var donation = await _context.Donations.Where(d => d.Id == id && d.InterestedTeamId == interestedTeamId).FirstAsync();
-        //}
+        public async Task<IActionResult> AcceptRequest(int id, string interestedTeamId)
+        { 
+            var donation =  _context.Donations.Where(d => d.Id == id && d.InterestedTeamId == interestedTeamId).FirstOrDefault();
+            var interestedTeamIdFromDonation = donation.InterestedTeamId;
+            donation.Status = "Unavailable";
+
+            var part = _context.Parts.Where(p => p.Id == donation.PartId).FirstOrDefault();
+            part.Status = "Unavailable";
+
+            _context.Update(donation);
+            _context.Update(part);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("InterestedTeamProfile", "Profile", new { interestedTeamId = interestedTeamIdFromDonation });
+        }
+
+        public async Task<IActionResult> DeclineRequest(int id, string interestedTeamId)
+        {
+            var donation = _context.Donations.Where(d => d.Id == id && d.InterestedTeamId == interestedTeamId).FirstOrDefault();
+
+            _context.Remove(donation);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
 
         // GET: Parts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -97,7 +119,8 @@ namespace FirstDonations.Controllers
                     Area = model.Area,
                     Count = model.Count,
                     Image = uniqueFileName,
-                    OwnerTeam = userId
+                    OwnerTeam = userId,
+                    Status = "Available"
                 };
 
                 _context.Add(part);
