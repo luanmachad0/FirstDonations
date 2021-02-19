@@ -11,14 +11,22 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <form class="form-inline">
+                    <button type="submit" class="nav-link btn btn-link text-white" asp-controller="Admin" asp-action="Index">Admin</button>
+                </form>
+            </li>
+        }
         <li class="nav-item">
             <form class="form-inline">
-                <button type="submit" class="nav-link btn btn-link text-dark" asp-controller="Parts" asp-action="Index">Parts</button>
+                <button type="submit" class="nav-link btn btn-link text-white" asp-controller="Parts" asp-action="Index">Parts</button>
             </form>
         </li>
         <li class="nav-item">
             <form class="form-inline">
-                <button type="submit" class="nav-link btn btn-link text-dark" asp-controller="Donations" asp-action="Index">Requests</button>
+                <button type="submit" class="nav-link btn btn-link text-white" asp-controller="Donations" asp-action="Index">Requests</button>
             </form>
         </li>
         <div class="dropdown">
@@ -28,6 +36,7 @@
                      class="dropimg"
                      width="40"
                      height="40"
+                     style="border: 2px solid white;"
                      asp-append-version="true" />
             }
             else

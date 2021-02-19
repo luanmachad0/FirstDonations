@@ -1,0 +1,67 @@
+﻿@model IEnumerable<FirstDonations.Areas.Identity.Data.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>My Parts</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfileImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamName)
+                </td>
+                <td class="pt-4">
+                    @Html.DisplayFor(modelItem => item.TeamNumber)
+                </td>
+                <td class="pt-4">
+                    <img src="~/img/@item.ProfileImage"
+                         width="80"
+                         height="80"
+                         style="border-radius: 50%;"
+                         asp-append-version="true" />
+                </td>
+                <td class="pt-4">
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td class="pt-4">
+                    <a class="fas fa-edit" asp-action="Edit" asp-route-id="@item.Id"></a> |
+                    <a class="fas fa-info-circle" asp-action="Details" asp-route-id="@item.Id"></a> |
+                    <a class="fas fa-trash-alt pr-5" asp-action="Delete" asp-route-id="@item.Id"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="modal" class="modal fade" role="dialog" />
+
+@section scripts{
+    <script>
+
+    </script>
+}

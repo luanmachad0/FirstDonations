@@ -20,11 +20,13 @@ namespace FirstDonations.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthDbContextConnection")));
 
-                services.AddDefaultIdentity<ApplicationUser>(options => {
+                services.AddDefaultIdentity<ApplicationUser>(options =>
+                {
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.SignIn.RequireConfirmedAccount = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AuthDbContext>();
             });
         }

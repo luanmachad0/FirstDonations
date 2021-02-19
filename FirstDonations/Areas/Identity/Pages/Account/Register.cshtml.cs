@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FirstDonations.Areas.Identity.Pages.Account
 {
@@ -25,6 +26,7 @@ namespace FirstDonations.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
@@ -32,15 +34,22 @@ namespace FirstDonations.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IWebHostEnvironment hostEnvironment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _logger = logger;
             _emailSender = emailSender;
             _webHostEnvironment = hostEnvironment;
+
+            Roles = new List<SelectListItem>();
+            Roles.Add(new SelectListItem() { Value = "Admin", Text = "Admin" });
+            Roles.Add(new SelectListItem() { Value = "Operator", Text = "Operator" });
+            Roles.Add(new SelectListItem() { Value = "User", Text = "User" });
         }
 
         [BindProperty]
@@ -49,6 +58,11 @@ namespace FirstDonations.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Perfis de usuário : ")]
+        [UIHint("List")]
+        public List<SelectListItem> Roles { get; set; }
 
         public class InputModel
         {
@@ -86,6 +100,21 @@ namespace FirstDonations.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Perfis de usuário : ")]
+            [UIHint("List")]
+            public List<SelectListItem> Roles { get; set; }
+
+            public string Role { get; set; }
+
+            public InputModel()
+            {
+                Roles = new List<SelectListItem>();
+                Roles.Add(new SelectListItem() { Value = "1", Text = "Admin" });
+                Roles.Add(new SelectListItem() { Value = "2", Text = "Operator" });
+                Roles.Add(new SelectListItem() { Value = "3", Text = "User" });
+            }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -117,7 +146,19 @@ namespace FirstDonations.Areas.Identity.Pages.Account
                     ProfileImage = uniqueFileName
                 };
 
+                user.LockoutEnabled = true;
+
+                
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                //-------------------atribuir role ao user------------------------------
+                var applicationRole = await _roleManager.FindByNameAsync(Input.Role);
+                if (applicationRole != null)
+                {
+                    IdentityResult roleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
+                }
+                //-------------------atribuir role ao user------------------------------
 
                 if (result.Succeeded)
                 {

@@ -30,7 +30,7 @@ namespace FirstDonations.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewBag.userId = userId;
 
-            return View(await _context.Parts.ToListAsync());
+            return View(await _context.Parts.Where(p => p.Status != "Unavailable" && p.OwnerTeam != "").ToListAsync());
         }
 
         public async Task<IActionResult> PartDetails(int? id)

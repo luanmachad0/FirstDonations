@@ -39,5 +39,21 @@ namespace FirstDonations.Controllers
 
             return View(model);
         }
+
+        public IActionResult PartOwnerProfile(string partOwnerId)
+        {
+            var partOwnerProfile = _context.Users.Where(u => u.Id == partOwnerId).FirstOrDefault();
+
+            ProfileViewModel model = new ProfileViewModel
+            {
+                TeamName = partOwnerProfile.TeamName,
+                UserName = partOwnerProfile.UserName,
+                TeamNumber = partOwnerProfile.TeamNumber,
+                PhoneNumber = partOwnerProfile.PhoneNumber,
+                ProfileImage = partOwnerProfile.ProfileImage
+            };
+
+            return View(model);
+        }
     }
 }

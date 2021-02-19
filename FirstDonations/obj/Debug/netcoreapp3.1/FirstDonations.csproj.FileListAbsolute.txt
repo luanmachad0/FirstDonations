@@ -453,3 +453,9 @@ C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcorea
 C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\FirstDonations.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Index.cshtml.g.cs
 C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Profile\InterestedTeamProfile.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Profile\PartOwnerProfile.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Parts\AvailableParts.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Parts\CreateUserPart.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ManageTeams.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Edit.cshtml.g.cs

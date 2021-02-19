@@ -2,3 +2,16 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+
+    $(document).ready(function () {
+        $(document).on("change", '[id*="PartList"]', function () {
+            $.post("/Parts/GetPart", { pId: $(this).val() }, function (data) {
+                $("[id*='Name']").val(data.name);
+                $("[id*='Area']").val(data.area);
+                $("[id*='Count']").val(data.count);
+                $("[id*='Image']").attr("src", '/img/' + data.image);
+            });
+        });
+        });
+

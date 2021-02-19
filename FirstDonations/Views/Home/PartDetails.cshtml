@@ -13,7 +13,10 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Image)
+                                Owner Team
+                            </th>
+                            <th>
+                                Part
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Name)
@@ -21,31 +24,44 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Area)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Count)
-                            </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                            <tr>
+                        <tr>
+                            @if (!String.IsNullOrEmpty(Model.ProfileImage))
+                            {
                                 <td>
-                                    <img src="~/img/@Model.Image"
+                                    <img src="~/img/@Model.ProfileImage"
                                          width="80"
                                          height="80"
                                          style="border-radius: 50%;"
                                          asp-append-version="true" />
                                 </td>
-                                <td class="pt-4">
-                                    @Html.DisplayFor(modelItem => @Model.Name)
+                            }
+                            else
+                            {
+                                <td>
+                                    <button class="dropbtn fas fa-user fa-1x"
+                                            style="border-radius: 50%; width:80px;
+                                            height:80px;"
+                                            asp-append-version="true" />
                                 </td>
-                                <td class="pt-4">
-                                    @Html.DisplayFor(modelItem => @Model.Area)
-                                </td>
-                                <td class="pt-4">
-                                    @Html.DisplayFor(modelItem => @Model.Count)
-                                </td>
-                            </tr>
+                            }
+                            <td>
+                                <img src="~/img/@Model.Image"
+                                     width="80"
+                                     height="80"
+                                     style="border-radius: 50%;"
+                                     asp-append-version="true" />
+                            </td>
+                            <td class="pt-4">
+                                @Html.DisplayFor(modelItem => @Model.Name)
+                            </td>
+                            <td class="pt-4">
+                                @Html.DisplayFor(modelItem => @Model.Area)
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

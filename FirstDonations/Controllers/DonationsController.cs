@@ -22,7 +22,7 @@ namespace FirstDonations.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return View(await _context.Donations.Where(d => d.InterestedTeamId == userId).ToListAsync());
+            return View(await _context.Donations.Where(d => d.InterestedTeamId == userId && d.Part.Status != "Unavailable").ToListAsync());
         }
 
         public async Task<IActionResult> Create(int id)
@@ -53,6 +53,24 @@ namespace FirstDonations.Controllers
             }
 
             return View();
+        }
+
+        // GET: Parts/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var donation = await _context.Donations
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (donation == null)
+            {
+                return NotFound();
+            }
+
+            return View(donation);
         }
     }
 }

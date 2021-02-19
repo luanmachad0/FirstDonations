@@ -1,0 +1,97 @@
+﻿@model FirstDonations.Models.Part
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .footer {
+        position: relative;
+    }
+</style>
+<div class="container">
+    <div class="modal-dialog" style="max-width:1000px;">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h4 class="modal-title">Part Details</h4>
+                </div>*@
+            <div class="modal-body">
+
+                <h1>Create part</h1>
+
+                <hr />
+                <div class="row">
+                    <div class="col-md-4">
+                        <form enctype="multipart/form-data" asp-action="CreateUserPart">
+                            <div class="form-group">
+                                <label class="control-label">Select one part</label>
+                                <select class="form-control" id="PartList" required asp-for="@Model.Id" asp-items="@(new SelectList(ViewBag.message,"Id","Name"))"></select>
+                            </div>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group pt-2">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input id="Name" asp-for="Name" class="form-control" disabled />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Area" class="control-label"></label>
+                                <input id="Area" asp-for="Area" class="form-control" disabled />
+                                <span asp-validation-for="Area" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Count" class="control-label"></label>
+                                <input id="Count" asp-for="Count" class="form-control" disabled />
+                                <span asp-validation-for="Count" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                @*<label asp-for="Image" class="control-label"></label>*@
+
+                                <img src="~/img/part-pattern.jpg"
+                                     id="Image"
+                                     class="card-img-top"
+                                     width="210"
+                                     height="170"
+                                     asp-append-version="true" />
+
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+    @*<script type="text/javascript">*@
+
+    @*$(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>*@
+
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $(document).on("change", '[id*="PartList"]', function () {
+                    $.post("/Parts/GetPart", { pId: $(this).val() }, function (data) {
+                        debugger;
+                        $("[id*='Name']").val("Name");
+                        $("[id*='Area']").val(data.Area);
+                        $("[id*='Count']").val(data.Count);
+                        $("[id*='Image']").val(data.Image);
+                    });
+                });
+            });
+        </script>*@
+}

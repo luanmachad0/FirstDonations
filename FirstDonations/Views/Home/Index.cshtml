@@ -6,6 +6,7 @@
 }
 
 <h4 class="text-center">See what community is donating</h4>
+<h4 class="text-center">Wanna donate something? <button class="btn-create btn btn-dark" asp-controller="Parts" asp-action="CreateUserPart">Click here</button></h4>
 
 @*<p>
         <a asp-action="New" class="btn btn-sm btn-primary rounded-0 text-uppercase"><i class="fas fa-plus-circle"></i> Add New</a>
@@ -21,6 +22,19 @@
             {
                 <div class="col s12 m4 flex-grow-0 pb-3">
                     <div class="card" style="width: 18rem;">
+                        @if (String.IsNullOrEmpty(part.ProfileImage))
+                        {
+                            <a href="@Url.Action("PartOwnerProfile", "Profile", new { partOwnerId = part.OwnerTeam })"><button class="dropbtn fas fa-user fa-1x" asp-action="PartDetails" data-id="@part.Id" style="border: 2px solid #1b6ec2;  width: 60px; height: 60px;"></button></a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("PartOwnerProfile", "Profile", new { partOwnerId = part.OwnerTeam })">
+                                <img class="dropimg"
+                                     width="60"
+                                     height="60"
+                                     style="border: 2px solid #1b6ec2;" src="~/img/@part.ProfileImage" href="@Url.Action("PartOwnerProfile", "Profile", new { partOwnerId = part.OwnerTeam })" asp-append-version="true" />
+                            </a>
+                        }
                         <img src="~/img/@part.Image"
                              class="card-img-top"
                              width="210"
@@ -28,16 +42,17 @@
                              asp-append-version="true" />
                         <div class="card-body">
                             <h5 class="card-title">@part.Name</h5>
-                            <p class="card-text">@part.Area, @part.Count</p>
+                            <p class="card-text">@part.Area</p>
                             @if (ViewBag.userId != part.OwnerTeam)
                             {
                                 <a href="@Url.Action("Create", "Donations", new { Id = part.Id })" class="btn btn-primary">Request</a>
                             }
                             else
                             {
-                                <a href="@Url.Action("Create", "Donations", new { Id = part.Id })" class="btn btn-primary disabled">Request</a>
                             }
-                            <button class="btn-details btn btn-primary" asp-action="PartDetails" data-id="@part.Id">Details</button>
+                            <button class="btn-details btn btn-dark" asp-action="PartDetails" data-id="@part.Id">
+                                Details
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -54,6 +69,14 @@
             $(".btn-details").click(function () {
                 var id = $(this).attr("data-id");
                 $("#modal").load("/Home/PartDetails?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+
+        $(function () {
+            $(".btn-create").click(function () {
+                $("#modal").load("/Parts/CreateUserPart", function () {
                     $("#modal").modal();
                 })
             });

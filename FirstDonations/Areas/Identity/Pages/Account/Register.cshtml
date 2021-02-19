@@ -5,58 +5,62 @@
 
 @{ Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml"; }
 
-<form asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="Input.TeamName"></label>
-                <input asp-for="Input.TeamName" class="form-control" />
-                <span asp-validation-for="Input.TeamName" class="text-danger"></span>
+    <form asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Input.TeamName"></label>
+                    <input asp-for="Input.TeamName" class="form-control" />
+                    <span asp-validation-for="Input.TeamName" class="text-danger"></span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.Email"></label>
-        <input asp-for="Input.Email" class="form-control" />
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.TeamNumber"></label>
-        <input asp-for="Input.TeamNumber" class="form-control" />
-        <span asp-validation-for="Input.TeamNumber" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.PhoneNumber"></label>
-        <input asp-for="Input.PhoneNumber" class="form-control" />
-        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.Image" class="control-label"></label>
-        <div class="custom-file">
-            <input asp-for="Input.Image" class="form-control custom-file-input" id="customFile">
-            <label asp-for="Input.Image" class="custom-file-label" for="customFile">Choose file</label>
+        <div class="form-group">
+            <label asp-for="Input.Email"></label>
+            <input asp-for="Input.Email" class="form-control" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
-        <span asp-validation-for="Input.Image" class="text-danger"></span>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="Input.TeamNumber"></label>
+            <input asp-for="Input.TeamNumber" class="form-control" />
+            <span asp-validation-for="Input.TeamNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.PhoneNumber"></label>
+            <input asp-for="Input.PhoneNumber" class="form-control" />
+            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Image" class="control-label"></label>
+            <div class="custom-file">
+                <input asp-for="Input.Image" class="form-control custom-file-input" id="customFile">
+                <label asp-for="Input.Image" class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <span asp-validation-for="Input.Image" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="Input.Roles"></label>
+            @Html.DropDownListFor(m => m.Input.Role, Model.Roles, "select one")
         </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
