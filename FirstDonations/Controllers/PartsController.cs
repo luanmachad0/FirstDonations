@@ -62,10 +62,10 @@ namespace FirstDonations.Controllers
         {
             var donation = _context.Donations.Where(d => d.Id == id && d.InterestedTeamId == interestedTeamId).FirstOrDefault();
             var interestedTeamIdFromDonation = donation.InterestedTeamId;
-            donation.Status = "Unavailable";
+            donation.Status = "In progress";
 
             var part = _context.Parts.Where(p => p.Id == donation.PartId).FirstOrDefault();
-            part.Status = "Unavailable";
+            part.Status = "In progress";
 
             _context.Update(donation);
             _context.Update(part);
@@ -114,7 +114,7 @@ namespace FirstDonations.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Area,Count,Image")] PartViewModel model)
+        public async Task<IActionResult> Create([Bind("Id,Name,Area,Image")] PartViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace FirstDonations.Controllers
                 {
                     Name = model.Name,
                     Area = model.Area,
-                    Count = model.Count,
+                    Count = 1,
                     Image = uniqueFileName,
                     OwnerTeam = userId,
                     Status = "Available",
@@ -145,7 +145,7 @@ namespace FirstDonations.Controllers
         }
 
         // GET: Parts/CreateUserPart
-        public IActionResult CreateUserPart()
+        public async Task<IActionResult> CreateUserPart()
         {
             List<Part> cl = new List<Part>();
             cl = (from c in _context.Parts.Where(p => p.OwnerTeam == "") select c).ToList();

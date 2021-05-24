@@ -1,14 +1,13 @@
 ﻿@model FirstDonations.Models.Part
 
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Create Part";
 }
-<style>
+@*<style>
     .footer {
         position: relative;
     }
-</style>
+</style>*@
 <div class="container">
     <div class="modal-dialog" style="max-width:1000px;">
         <div class="modal-content">
@@ -30,36 +29,34 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group pt-2">
                                 <label asp-for="Name" class="control-label"></label>
-                                <input id="Name" asp-for="Name" class="form-control" disabled />
+                                <input id="Name" asp-for="Name" class="form-control" readonly />
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Area" class="control-label"></label>
-                                <input id="Area" asp-for="Area" class="form-control" disabled />
+                                <input id="Area" asp-for="Area" class="form-control" readonly />
                                 <span asp-validation-for="Area" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Count" class="control-label"></label>
-                                <input id="Count" asp-for="Count" class="form-control" disabled />
+                                <input id="Count" asp-for="Count" class="form-control" readonly />
                                 <span asp-validation-for="Count" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group">
-                                @*<label asp-for="Image" class="control-label"></label>*@
-
-                                <img src="~/img/part-pattern.jpg"
-                                     id="Image"
-                                     class="card-img-top"
-                                     width="210"
-                                     height="170"
-                                     asp-append-version="true" />
-
                             </div>
 
                             <div class="form-group">
                                 <input type="submit" value="Create" class="btn btn-primary" />
                             </div>
                         </form>
+                    </div>
+                    <div class="col-md-6 pt-5">
+                        <center>
+                            <img src="~/img/part-pattern.jpg"
+                                 class="pl-5"
+                                 id="Image"
+                                 width="300"
+                                 height="300"
+                                 asp-append-version="true" />
+                        </center>
                     </div>
                 </div>
             </div>

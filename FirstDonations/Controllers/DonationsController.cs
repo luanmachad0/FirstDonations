@@ -22,7 +22,7 @@ namespace FirstDonations.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return View(await _context.Donations.Where(d => d.InterestedTeamId == userId && d.Part.Status != "Unavailable").ToListAsync());
+            return View(await _context.Donations.Where(d => d.InterestedTeamId == userId && d.Part.Status != "Closed").ToListAsync());
         }
 
         public async Task<IActionResult> Create(int id)

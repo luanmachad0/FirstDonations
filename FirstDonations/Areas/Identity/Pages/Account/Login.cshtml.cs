@@ -89,7 +89,7 @@ namespace FirstDonations.Areas.Identity.Pages.Account
                 if (user.LockoutEnabled)
                 {
                     _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
+                    return RedirectToAction("Index", "UserLocked");
                 }
 
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);

@@ -153,11 +153,11 @@ namespace FirstDonations.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 //-------------------atribuir role ao user------------------------------
-                var applicationRole = await _roleManager.FindByNameAsync(Input.Role);
-                if (applicationRole != null)
-                {
-                    IdentityResult roleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
-                }
+                //var applicationRole = await _roleManager.FindByNameAsync(Input.Role);
+                //if (applicationRole != null)
+                //{
+                //    IdentityResult roleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
+                //}
                 //-------------------atribuir role ao user------------------------------
 
                 if (result.Succeeded)
@@ -175,9 +175,10 @@ namespace FirstDonations.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    if (user.LockoutEnabled)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        _logger.LogWarning("User account locked out.");
+                        return RedirectToPage("./UserLocked");
                     }
                     else
                     {

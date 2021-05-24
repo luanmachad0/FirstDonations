@@ -30,7 +30,18 @@ namespace FirstDonations.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewBag.userId = userId;
 
-            return View(await _context.Parts.Where(p => p.Status != "Unavailable" && p.OwnerTeam != "").ToListAsync());
+            var userDonations = _context.Donations.Where(d => d.InterestedTeamId == userId).ToList();
+
+            List<int> parts = new List<int>();
+
+            foreach (Donation donation in userDonations)
+            { 
+                parts.Add(donation.PartId);
+            }
+
+            ViewBag.userRequestsPartId = parts;
+
+            return View(await _context.Parts.Where(p => p.Status != "Closed" && p.OwnerTeam != "").ToListAsync());
         }
 
         public async Task<IActionResult> PartDetails(int? id)

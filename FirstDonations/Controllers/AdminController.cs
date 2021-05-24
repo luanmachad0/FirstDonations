@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstDonations.Areas.Identity.Data;
+using FirstDonations.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Data;
@@ -12,10 +13,12 @@ namespace FirstDonations.Controllers
     public class AdminController : Controller
     {
         private readonly AuthDbContext _authDbContext;
+        private readonly AppDbContext _context;
 
-        public AdminController(AuthDbContext authDbContext)
+        public AdminController(AuthDbContext authDbContext, AppDbContext context)
         {
             _authDbContext = authDbContext;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -35,7 +38,7 @@ namespace FirstDonations.Controllers
                 return NotFound();
             }
 
-            var user =  _authDbContext.Users.Find(id);
+            var user = _authDbContext.Users.Find(id);
             if (user == null)
             {
                 return NotFound();
@@ -91,5 +94,43 @@ namespace FirstDonations.Controllers
         {
             return _authDbContext.Users.Any(e => e.Id == id);
         }
+
+        // GET: Admin/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var part = await _authDbContext.Users
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (part == null)
+            {
+                return NotFound();
+            }
+
+            return View(part);
+        }
+
+        // POST: Admin/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var user = await _authDbContext.Users.FindAsync(id);
+            _authDbContext.Users.Remove(user);
+
+            var parts = _context.Parts.Where(p => p.OwnerTeam == id).ToList();
+
+            foreach (Part part in parts)
+            {
+                _context.Parts.Remove(part);
+            }
+
+            await _authDbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(ManageTeams));
+        }
+
     }
 }

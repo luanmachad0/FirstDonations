@@ -22,9 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Area)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Count)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -44,9 +41,6 @@
                 </td>
                 <td class="pt-4">
                     @Html.DisplayFor(modelItem => item.Area)
-                </td>
-                <td class="pt-4">
-                    @Html.DisplayFor(modelItem => item.Count)
                 </td>
                 <td class="pt-4">
                     <a class="fas fa-edit" asp-action="Edit" asp-route-id="@item.Id"></a> |

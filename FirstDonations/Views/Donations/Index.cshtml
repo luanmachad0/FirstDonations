@@ -20,6 +20,7 @@
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -42,6 +43,9 @@
                 <td class="pt-4">
                     <a class="fas fa-info-circle" asp-controller="Parts" asp-action="Details" asp-route-id="@item.PartId"></a> |
                     <a class="fas fa-trash-alt" asp-action="Delete" asp-route-id="@item.Id"></a>
+                </td>
+                <td class="pt-4">
+                    <a class="btn btn-dark" href="@Url.Action("PartOwnerProfile", "Profile", new { partOwnerId = item.DonatorTeamId })">Contact Owner Part</a>
                 </td>
             </tr>
         }
