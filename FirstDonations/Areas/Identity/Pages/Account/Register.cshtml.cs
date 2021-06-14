@@ -73,14 +73,21 @@ namespace FirstDonations.Areas.Identity.Pages.Account
 
             [Required]
             [EmailAddress]
+            [RegularExpression("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
+                            ErrorMessage = "Please enter a valid email address")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
+            [StringLength(5)]
+            [RegularExpression("^(0|[1-9]*)$",
+                            ErrorMessage = "Please enter a valid number")]
             [Display(Name = "Team Number")]
             public string TeamNumber { get; set; }
 
             [Required]
+            [RegularExpression(@"(([+][(]?[0-9]{1,3}[)]?)|([(]?[0-9]{2}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s\.]?[0-9]{3})([-\s\.]?[0-9]{3,4})",
+                            ErrorMessage = "Please enter a valid phone number")]
             [Phone]
             [DataType(DataType.PhoneNumber)]
             [Display(Name = "Phone Number")]

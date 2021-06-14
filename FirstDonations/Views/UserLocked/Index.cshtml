@@ -1,7 +1,14 @@
 ﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-
+    <center>
+        <img src="~/img/loading.jpg"
+             width="50%"
+             height="50%"
+             style="border-radius: 50%;"
+             asp-append-version="true" />
+    </center>
     <h4 class="text-center">Your account is temporarily locked, wait for confirmation from the administrator.</h4>
     <h4 class="text-center">You can contact us via email: firstdonations@gmail.com</h4>
-    <center><a href="../../Identity/Account/Login?ReturnUrl=%2F" class="text-center">Back to login</a></center>
+
+    <center><a href="../../Identity/Account/Login?ReturnUrl=%2F" class="text-center btn btn-primary">Back to login</a></center>

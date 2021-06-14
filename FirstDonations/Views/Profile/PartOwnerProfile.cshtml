@@ -53,7 +53,7 @@ else
                     <input asp-for="@Model.PhoneNumber" class="form-control" disabled />
                     <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
                 </div>
-                <button id="update-profile-button" type="submit" class="btn btn-primary form-control">Contact</button>
+                <a id="update-profile-button" href="mailto:@Model.UserName" class="btn btn-primary form-control">Contact</a>
             </form>
         </div>
     </div>

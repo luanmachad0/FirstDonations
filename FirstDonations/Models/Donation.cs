@@ -19,5 +19,6 @@ namespace FirstDonations.Models
         public string InterestedTeamId { get; set; }
         public string InterestedTeamName { get; set; }
         public string DonatorTeamId { get; set; }
+        public string DonatorTeamName { get; set; }
     }
 }

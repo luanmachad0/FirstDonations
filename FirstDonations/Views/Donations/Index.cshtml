@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>My Requests</h1>
+<h1>Requests</h1>
 
 <table class="table">
     <thead>
@@ -41,13 +41,31 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td class="pt-4">
-                    <a class="fas fa-info-circle" asp-controller="Parts" asp-action="Details" asp-route-id="@item.PartId"></a> |
-                    <a class="fas fa-trash-alt" asp-action="Delete" asp-route-id="@item.Id"></a>
+                    <a class="fas fa-info-circle" asp-controller="Parts" asp-action="Details" asp-route-id="@item.PartId"></a>
                 </td>
                 <td class="pt-4">
+                    @if (item.Status == "In progress" || item.Status == "Requested")
+                    {
+                    <button class="btn-cancel-request btn btn-danger" asp-action="Delete" data-id="@item.Id">Cancel</button>
+                    }
                     <a class="btn btn-dark" href="@Url.Action("PartOwnerProfile", "Profile", new { partOwnerId = item.DonatorTeamId })">Contact Owner Part</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<div id="modal" class="modal fade" role="dialog" />
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".btn-cancel-request").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Donations/Delete?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+}

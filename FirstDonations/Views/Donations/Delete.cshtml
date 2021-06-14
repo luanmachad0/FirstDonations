@@ -1,0 +1,77 @@
+﻿@model FirstDonations.Models.Donation
+@{
+    ViewBag.Title = "Part";
+}
+<div class="container">
+    <div class="modal-dialog" style="max-width:1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure you want to cancel this?</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Donator Team
+                            </th>
+                            <th>
+                                Donator Team Name
+                            </th>
+                            <th>
+                                Part
+                            </th>
+                            <th>
+                                Donation Status
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @if (!String.IsNullOrEmpty(ViewBag.DonatorTeamProfileImage))
+                            {
+                                <td>
+                                    <img src="~/img/@ViewBag.DonatorTeamProfileImage"
+                                         width="80"
+                                         height="80"
+                                         style="border-radius: 50%;"
+                                         asp-append-version="true" />
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <button class="dropbtn fas fa-user fa-1x"
+                                            style="border-radius: 50%; width:80px;
+                                                height:80px;"
+                                            asp-append-version="true" />
+                                </td>
+                            }
+                            <td class="pt-4">
+                                @Html.DisplayFor(modelItem => @Model.DonatorTeamName)
+                            </td>
+                            <td>
+                                <img src="~/img/@Model.ImagePart"
+                                     width="80"
+                                     height="80"
+                                     style="border-radius: 50%;"
+                                     asp-append-version="true" />
+                            </td>
+                            <td class="pt-4">
+                                @Html.DisplayFor(modelItem => @Model.Status)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Cancel" class="btn btn-danger" />
+                </form>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
