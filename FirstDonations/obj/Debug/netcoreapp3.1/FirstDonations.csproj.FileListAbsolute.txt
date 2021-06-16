@@ -465,3 +465,4 @@ C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcorea
 C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Parts\CreateUserPart.cshtml.g.cs
 C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Donations\Edit.cshtml.g.cs
 C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Donations\UsersDonations.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Home\Ranking.cshtml.g.cs

@@ -22,6 +22,9 @@
             <th>
                 Owner Team
             </th>
+            <th>
+                Conservation Status
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -44,6 +47,9 @@
             </td>
             <td class="pt-4">
                 @Html.DisplayFor(modelItem => item.OwnerTeamName)
+            </td>
+            <td class="pt-4">
+                @Html.DisplayFor(modelItem => item.Part.ConservationStatus)
             </td>
             <td class="pt-4">
                 <a class="fas fa-edit" asp-action="Edit" asp-route-id="@item.Part.Id"></a> |

@@ -28,5 +28,6 @@ namespace FirstDonations.Models
 
         public String OwnerTeam { get; set; }
         public string ProfileImage { get; set; }
+        public string ConservationStatus { get; set; }
     }
 }

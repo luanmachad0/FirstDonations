@@ -153,7 +153,8 @@ namespace FirstDonations.Controllers
                     Image = uniqueFileName,
                     OwnerTeam = userId,
                     Status = "Available",
-                    ProfileImage = ownerTeam.ProfileImage
+                    ProfileImage = ownerTeam.ProfileImage,
+                    ConservationStatus = ""
                 };
 
                 part.OwnerTeam = "";
@@ -182,7 +183,7 @@ namespace FirstDonations.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateUserPart([Bind("Id,Name,Area,Count,Image")] Part model)
+        public async Task<IActionResult> CreateUserPart([Bind("Id,Name,Area,Count,Image,ConservationStatus")] Part model)
         {
             var partSelected = _context.Parts.Where(p => p.Name == model.Name).FirstOrDefault();
 
@@ -197,7 +198,8 @@ namespace FirstDonations.Controllers
                 Image = partSelected.Image,
                 OwnerTeam = userId,
                 Status = "Available",
-                ProfileImage = ownerTeam.ProfileImage
+                ProfileImage = ownerTeam.ProfileImage,
+                ConservationStatus = model.ConservationStatus
             };
 
             _context.Add(part);

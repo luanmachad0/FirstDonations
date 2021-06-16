@@ -38,6 +38,16 @@
                                 <span asp-validation-for="Area" class="text-danger"></span>
                             </div>
                             <div class="form-group">
+                                <label class="control-label">Conservation status</label>
+                                <select id="ConservationStatus" asp-for="ConservationStatus" class="form-control">
+                                    <option value="New">New</option>
+                                    <option value="Little Used">Little Used</option>
+                                    <option value="Used">Used</option>
+                                    <option value="Spoiled">Spoiled</option>
+                                </select>
+                                <span asp-validation-for="ConservationStatus" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
                                 <input type="submit" value="Create" class="btn btn-primary" />
                             </div>
                         </form>
