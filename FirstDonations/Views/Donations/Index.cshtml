@@ -48,6 +48,11 @@
                     {
                         <button class="btn-cancel-request btn btn-danger" asp-action="Delete" data-id="@item.Id">Cancel</button>
                     }
+
+                    @if (item.Status == "Sent")
+                    {
+                        <a href="@Url.Action("MarkAsReceived", "Donations", new { Id = item.Id, DonatorTeamId = item.DonatorTeamId })" class="btn btn-primary">Mark as received</a>
+                    }
                     <a class="btn btn-dark" href="@Url.Action("PartOwnerProfile", "Profile", new { partOwnerId = item.DonatorTeamId })">Contact Owner Part</a>
                 </td>
             </tr>

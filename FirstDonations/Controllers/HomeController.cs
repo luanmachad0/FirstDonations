@@ -49,7 +49,7 @@ namespace FirstDonations.Controllers
 
             ViewBag.userRequestsPartId = parts;
 
-            return View(await _context.Parts.Where(p => p.Status != "Closed" && p.OwnerTeam != "").ToListAsync());
+            return View(await _context.Parts.Where(p => p.Status != "NotAvailable" && p.OwnerTeam != "").ToListAsync());
         }
 
         public async Task<IActionResult> Ranking()

@@ -28,6 +28,38 @@ namespace FirstDonations.Controllers
             return View(await _context.Donations.Where(d => d.InterestedTeamId == userId && d.Part.Status != "Closed").ToListAsync());
         }
 
+        public async Task<IActionResult> MarkAsSent(int id, string interestedTeamId)
+        {
+            var donation = _context.Donations.Where(d => d.Id == id && d.InterestedTeamId == interestedTeamId).FirstOrDefault();
+            var interestedTeamIdFromDonation = donation.InterestedTeamId;
+            donation.Status = "Sent";
+
+            var part = _context.Parts.Where(p => p.Id == donation.PartId).FirstOrDefault();
+            part.Status = "NotAvaible";
+
+            _context.Update(donation);
+            _context.Update(part);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("InterestedTeamProfile", "Profile", new { interestedTeamId = interestedTeamIdFromDonation });
+        }
+
+        public async Task<IActionResult> MarkAsReceived(int id, string donatorTeamId)
+        {
+            var donation = _context.Donations.Where(d => d.Id == id && d.DonatorTeamId == donatorTeamId).FirstOrDefault();
+            var donatorTeamIdFromDonation = donation.DonatorTeamId;
+            donation.Status = "Received";
+
+            var part = _context.Parts.Where(p => p.Id == donation.PartId).FirstOrDefault();
+            part.Status = "NotAvaible";
+
+            _context.Update(donation);
+            _context.Update(part);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("InterestedTeamProfile", "Profile", new { donatorTeamId = donatorTeamIdFromDonation });
+        }
+
         public async Task<IActionResult> UsersDonations()
         {
             return View(await _context.Donations.ToListAsync());

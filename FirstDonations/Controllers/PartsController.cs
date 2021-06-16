@@ -75,6 +75,11 @@ namespace FirstDonations.Controllers
             foreach (var donation in partDonations)
             {
                 ViewBagUserDonations.Add(donation);
+
+                if (donation.Status == "In progress" || donation.Status == "Sent" || donation.Status == "Received")
+                {
+                    ViewBag.IsPartInDonationAlready = true;
+                }
             }
 
             return View(ViewBagUserDonations);
