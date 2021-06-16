@@ -1,0 +1,71 @@
+﻿@model IEnumerable<FirstDonations.ViewModels.UsersPartsViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Available users parts</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Part.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Part.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Part.Area)
+            </th>
+            <th>
+                Owner Team
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <img src="~/img/@item.Part.Image"
+                     width="80"
+                     height="80"
+                     style="border-radius: 50%;"
+                     asp-append-version="true" />
+            </td>
+            <td class="pt-4">
+                @Html.DisplayFor(modelItem => item.Part.Name)
+            </td>
+            <td class="pt-4">
+                @Html.DisplayFor(modelItem => item.Part.Area)
+            </td>
+            <td class="pt-4">
+                @Html.DisplayFor(modelItem => item.OwnerTeamName)
+            </td>
+            <td class="pt-4">
+                <a class="fas fa-edit" asp-action="Edit" asp-route-id="@item.Part.Id"></a> |
+                <a class="fas fa-info-circle" asp-action="Details" asp-route-id="@item.Part.Id"></a> |
+                <a class="fas fa-trash-alt pr-5" asp-action="Delete" asp-route-id="@item.Part.Id"></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div id="modal" class="modal fade" role="dialog"  />
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".btn-requests").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Parts/Requests?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+}

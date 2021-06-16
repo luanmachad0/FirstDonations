@@ -9,6 +9,7 @@ using FirstDonations.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Project.Data;
 
 namespace FirstDonations.Controllers
 {
@@ -18,11 +19,13 @@ namespace FirstDonations.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly AppDbContext _context;
+        private readonly AuthDbContext _authDbContext;
 
-        public HomeController(ILogger<HomeController> logger, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, AppDbContext context, AuthDbContext authDbContext)
         {
             _logger = logger;
             _context = context;
+            _authDbContext = authDbContext;
         }
 
         public async Task<IActionResult> Index()
@@ -39,9 +42,19 @@ namespace FirstDonations.Controllers
                 parts.Add(donation.PartId);
             }
 
+            if(parts.Count == 0)
+            {
+                parts.Add(555);
+            }
+
             ViewBag.userRequestsPartId = parts;
 
             return View(await _context.Parts.Where(p => p.Status != "Closed" && p.OwnerTeam != "").ToListAsync());
+        }
+
+        public async Task<IActionResult> Ranking()
+        {
+            return View(await _authDbContext.Users.Where(u => u.TeamName != "Super User").ToListAsync());
         }
 
         public async Task<IActionResult> PartDetails(int? id)

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<FirstDonations.Areas.Identity.Data.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 class="text-center">See the most donators teams</h4>
+
+<div class="container">
+
+    <div class="section">
+        <div class="row">
+            @foreach (var user in Model)
+            {
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Team name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Donations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            }
+        </div>
+    </div>
+</div>
+

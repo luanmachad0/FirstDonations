@@ -123,9 +123,16 @@ namespace FirstDonations.Controllers
 
             var parts = _context.Parts.Where(p => p.OwnerTeam == id).ToList();
 
+            var donations = _context.Donations.Where(d => d.DonatorTeamId == id || d.InterestedTeamId == id).ToList();
+
             foreach (Part part in parts)
             {
                 _context.Parts.Remove(part);
+            }
+
+            foreach (Donation donation in donations)
+            {
+                _context.Donations.Remove(donation);
             }
 
             await _authDbContext.SaveChangesAsync();

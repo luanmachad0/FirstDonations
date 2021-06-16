@@ -42,6 +42,28 @@ namespace FirstDonations.Controllers
             return View(await _context.Parts.Where(p => p.OwnerTeam == "").ToListAsync());
         }
 
+        public async Task<IActionResult> AvailableUsersParts()
+        {
+            var parts = await _context.Parts.Where(p => p.OwnerTeam != "").ToListAsync();
+
+            var usersparts = new List<UsersPartsViewModel>();
+
+            foreach (Part part in parts)
+            {
+                var ownerTeam =_authDbContext.Users.Where(u => u.Id == part.OwnerTeam).FirstOrDefault();
+
+                var userPart = new UsersPartsViewModel
+                {
+                    Part = part,
+                    OwnerTeamName = ownerTeam.UserName
+                };
+
+                usersparts.Add(userPart);
+            }
+
+            return View(usersparts);
+        }
+
         public async Task<IActionResult> Requests(int? id)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -224,7 +246,7 @@ namespace FirstDonations.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Area,Count,Image")] Part part)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Area,Count,Image,OwnerTeam,Status,ProfileImage")] Part part)
         {
             if (id != part.Id)
             {
