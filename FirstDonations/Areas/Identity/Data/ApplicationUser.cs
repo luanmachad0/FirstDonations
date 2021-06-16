@@ -16,5 +16,6 @@ namespace FirstDonations.Areas.Identity.Data
         public string TeamName { get; set; }
         public string ProfileImage { get; set; }
         public string TeamNumber { get; set; }
+        public int NumberOfSuccessDonations { get; set; }
     }
 }

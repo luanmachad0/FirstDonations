@@ -150,7 +150,8 @@ namespace FirstDonations.Areas.Identity.Pages.Account
                     TeamName = Input.TeamName,
                     TeamNumber = Input.TeamNumber,
                     PhoneNumber = Input.PhoneNumber,
-                    ProfileImage = uniqueFileName
+                    ProfileImage = uniqueFileName,
+                    NumberOfSuccessDonations = 0
                 };
 
                 user.LockoutEnabled = true;

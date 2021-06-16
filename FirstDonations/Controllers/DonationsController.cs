@@ -53,6 +53,9 @@ namespace FirstDonations.Controllers
             var part = _context.Parts.Where(p => p.Id == donation.PartId).FirstOrDefault();
             part.Status = "NotAvaible";
 
+            var user = _authDbContext.Users.Where(u => u.Id == donatorTeamId).FirstOrDefault();
+            user.NumberOfSuccessDonations = user.NumberOfSuccessDonations + 1;
+
             _context.Update(donation);
             _context.Update(part);
             await _context.SaveChangesAsync();
