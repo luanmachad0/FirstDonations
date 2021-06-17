@@ -51,16 +51,21 @@ namespace FirstDonations.Controllers
             donation.Status = "Received";
 
             var part = _context.Parts.Where(p => p.Id == donation.PartId).FirstOrDefault();
-            part.Status = "NotAvaible";
+            part.Status = "NotAvailable";
 
             var user = _authDbContext.Users.Where(u => u.Id == donatorTeamId).FirstOrDefault();
             user.NumberOfSuccessDonations = user.NumberOfSuccessDonations + 1;
 
+            var teste = user.NumberOfSuccessDonations;
+
             _context.Update(donation);
             _context.Update(part);
-            await _context.SaveChangesAsync();
+            _authDbContext.Update(user);
 
-            return RedirectToAction("InterestedTeamProfile", "Profile", new { donatorTeamId = donatorTeamIdFromDonation });
+            await _context.SaveChangesAsync();
+            await _authDbContext.SaveChangesAsync();
+
+            return RedirectToAction("InterestedTeamProfile", "Profile", new { interestedTeamId = donatorTeamIdFromDonation });
         }
 
         public async Task<IActionResult> UsersDonations()

@@ -49,9 +49,10 @@
                             {
                                 <td class="pt-4">
                                     <a href="@Url.Action("MarkAsSent", "Donations", new { Id = item.Id, InterestedTeamId = item.InterestedTeamId })" class="btn btn-primary">Mark as sent</a>
+                                    <a href="@Url.Action("DeclineRequest", "Parts", new { Id = item.Id,  InterestedTeamId = item.InterestedTeamId  })" class="btn btn-danger">Cancel donation</a>
                                 </td>
                             }
-                            
+
                             @if (!ViewBag.IsPartInDonationAlready)
                             {
                                 <td class="pt-4">

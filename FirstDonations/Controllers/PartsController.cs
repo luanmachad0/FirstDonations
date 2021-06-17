@@ -253,7 +253,7 @@ namespace FirstDonations.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Area,Count,Image,OwnerTeam,Status,ProfileImage")] Part part)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Area,Count,Image,OwnerTeam,Status,ProfileImage,ConservationStatus")] Part part)
         {
             if (id != part.Id)
             {

@@ -54,7 +54,13 @@ namespace FirstDonations.Controllers
 
         public async Task<IActionResult> Ranking()
         {
-            return View(await _authDbContext.Users.Where(u => u.TeamName != "Super User").ToListAsync());
+            var users = await _authDbContext.Users.Where(u => u.TeamName != "Super User").OrderByDescending(u => u.NumberOfSuccessDonations).ToListAsync();
+
+            List<int> rankingNumbers = new List<int>() {1,2,3,4,5};
+
+            ViewBag.rankingNumbers = rankingNumbers;
+
+            return View(users);
         }
 
         public async Task<IActionResult> PartDetails(int? id)

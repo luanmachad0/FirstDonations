@@ -41,9 +41,6 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td class="pt-4">
-                    <a class="fas fa-info-circle" asp-controller="Parts" asp-action="Details" asp-route-id="@item.PartId"></a>
-                </td>
-                <td class="pt-4">
                     @if (item.Status == "In progress" || item.Status == "Requested")
                     {
                         <button class="btn-cancel-request btn btn-danger" asp-action="Delete" data-id="@item.Id">Cancel</button>
