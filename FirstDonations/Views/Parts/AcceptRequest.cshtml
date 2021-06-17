@@ -1,0 +1,21 @@
+﻿@model FirstDonations.Models.Donation
+@{
+    ViewBag.Title = "Notification";
+}
+<div class="container">
+    <div class="modal-dialog" style="max-width:1000px;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <center><h1>Are you sure you want to accept this request?</h1></center>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="AcceptRequest">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="InterestedTeamId" />
+                    <input type="submit" value="Accept" class="btn btn-primary" />
+                </form>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

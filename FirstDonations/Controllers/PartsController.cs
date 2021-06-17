@@ -72,6 +72,8 @@ namespace FirstDonations.Controllers
 
             var partDonations = await _context.Donations.Where(d => d.Part.Id == id).ToListAsync();
 
+            ViewBag.IsPartInDonationAlready = false;
+
             foreach (var donation in partDonations)
             {
                 ViewBagUserDonations.Add(donation);
@@ -85,6 +87,26 @@ namespace FirstDonations.Controllers
             return View(ViewBagUserDonations);
         }
 
+        public async Task<IActionResult> AcceptRequest(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var donation = await _context.Donations
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (donation == null)
+            {
+                return NotFound();
+            }
+
+            return View(donation);
+        }
+
+        [HttpPost, ActionName("AcceptRequest")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AcceptRequest(int id, string interestedTeamId)
         {
             var donation = _context.Donations.Where(d => d.Id == id && d.InterestedTeamId == interestedTeamId).FirstOrDefault();
@@ -94,6 +116,16 @@ namespace FirstDonations.Controllers
             var part = _context.Parts.Where(p => p.Id == donation.PartId).FirstOrDefault();
             part.Status = "In progress";
 
+            var notification = _context.Notifications.Where(n => n.Id == 4).FirstOrDefault();
+
+            UsersNotifications userNotification = new UsersNotifications
+            {
+                NotificationId = notification.Id,
+                ReceptorTeamId = interestedTeamIdFromDonation,
+                DeliverTeamId = donation.DonatorTeamId
+            };
+
+            _context.Add(userNotification);
             _context.Update(donation);
             _context.Update(part);
             await _context.SaveChangesAsync();
@@ -101,9 +133,40 @@ namespace FirstDonations.Controllers
             return RedirectToAction("InterestedTeamProfile", "Profile", new { interestedTeamId = interestedTeamIdFromDonation });
         }
 
+        public async Task<IActionResult> DeclineRequest(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var donation = await _context.Donations
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (donation == null)
+            {
+                return NotFound();
+            }
+
+            return View(donation);
+        }
+
+        [HttpPost, ActionName("DeclineRequest")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeclineRequest(int id, string interestedTeamId)
         {
             var donation = _context.Donations.Where(d => d.Id == id && d.InterestedTeamId == interestedTeamId).FirstOrDefault();
+
+            var notification = _context.Notifications.Where(n => n.Id == 3).FirstOrDefault();
+
+            UsersNotifications userNotification = new UsersNotifications
+            {
+                NotificationId = notification.Id,
+                ReceptorTeamId = donation.InterestedTeamId,
+                DeliverTeamId = donation.DonatorTeamId
+            };
+
+            _context.Add(userNotification);
 
             _context.Remove(donation);
 

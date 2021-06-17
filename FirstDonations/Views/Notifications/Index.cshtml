@@ -1,0 +1,41 @@
+﻿@model IEnumerable<FirstDonations.Models.UsersNotifications>
+
+@{
+    ViewData["Title"] = "Notifications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Notifications</h1>
+
+<table class="table">
+
+    <tbody>
+        @foreach (var notification in ViewBag.Notifications)
+        {
+            <tr>
+                <td class="pt-4">
+                    @notification.TeamName @notification.Content
+                </td>
+                <td class="pt-4">
+                    <button class="btn-delete-notification btn btn-danger"  asp-action="Delete" data-id="@notification.Id">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div id="modal" class="modal fade" role="dialog" />
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".btn-delete-notification").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Notifications/Delete?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+}

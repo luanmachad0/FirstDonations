@@ -467,3 +467,7 @@ C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcorea
 C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Donations\UsersDonations.cshtml.g.cs
 C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Home\Ranking.cshtml.g.cs
 C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Home\IndexSearch.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Notifications\Delete.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Notifications\Index.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Parts\AcceptRequest.cshtml.g.cs
+C:\Users\luan.machado\Documents\FirstDonations\FirstDonations\obj\Debug\netcoreapp3.1\Razor\Views\Parts\DeclineRequest.cshtml.g.cs

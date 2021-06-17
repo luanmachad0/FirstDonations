@@ -43,13 +43,14 @@
                         <div class="card-body">
                             <h5 class="card-title">@part.Name</h5>
                             <p class="card-text">@part.Area</p>
-                            @foreach (var userRequests in @ViewBag.userRequestsPartId)
-                            {
-                                @if (@ViewBag.userId != part.OwnerTeam && userRequests != part.Id)
+                            @*@foreach (var userRequests in @ViewBag.userRequestsPartId.)
+                            {*@
+                                @if (!((IList<int>)ViewBag.userRequestsPartId).Contains(part.Id) && ViewBag.userId != part.OwnerTeam)
                                 {
                                     <a href="@Url.Action("Create", "Donations", new { Id = part.Id })" class="btn btn-primary">Request</a>
                                 }
-                            }
+
+                            @*}*@
                             <button class="btn-details btn btn-dark" asp-action="PartDetails" data-id="@part.Id">
                                 Details
                             </button>

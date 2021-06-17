@@ -37,6 +37,17 @@ namespace FirstDonations.Controllers
             var part = _context.Parts.Where(p => p.Id == donation.PartId).FirstOrDefault();
             part.Status = "NotAvaible";
 
+            var notification = _context.Notifications.Where(n => n.Id == 5).FirstOrDefault();
+
+            UsersNotifications userNotification = new UsersNotifications
+            {
+                NotificationId = notification.Id,
+                ReceptorTeamId = interestedTeamIdFromDonation,
+                DeliverTeamId = donation.DonatorTeamId
+            };
+
+            _context.Add(userNotification);
+
             _context.Update(donation);
             _context.Update(part);
             await _context.SaveChangesAsync();
@@ -56,7 +67,14 @@ namespace FirstDonations.Controllers
             var user = _authDbContext.Users.Where(u => u.Id == donatorTeamId).FirstOrDefault();
             user.NumberOfSuccessDonations = user.NumberOfSuccessDonations + 1;
 
-            var teste = user.NumberOfSuccessDonations;
+            var notification = _context.Notifications.Where(n => n.Id == 6).FirstOrDefault();
+
+            UsersNotifications userNotification = new UsersNotifications
+            {
+                NotificationId = notification.Id,
+                ReceptorTeamId = donatorTeamIdFromDonation,
+                DeliverTeamId = donation.InterestedTeamId
+            };
 
             _context.Update(donation);
             _context.Update(part);
@@ -102,6 +120,16 @@ namespace FirstDonations.Controllers
                     DonatorTeamName = donatorTeamName
                 };
 
+                var notification = _context.Notifications.Where(n => n.Id == 1).FirstOrDefault();
+
+                UsersNotifications userNotification = new UsersNotifications
+                {
+                    NotificationId = notification.Id,
+                    ReceptorTeamId = donatorTeamId,
+                    DeliverTeamId = interestedTeamId
+                };
+
+                _context.Add(userNotification);
                 _context.Add(donation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -140,6 +168,17 @@ namespace FirstDonations.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var donation = await _context.Donations.FindAsync(id);
+
+            var notification = _context.Notifications.Where(n => n.Id == 2).FirstOrDefault();
+
+            UsersNotifications userNotification = new UsersNotifications
+            {
+                NotificationId = notification.Id,
+                ReceptorTeamId = donation.DonatorTeamId,
+                DeliverTeamId = donation.InterestedTeamId
+            };
+
+            _context.Add(userNotification);
             _context.Donations.Remove(donation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

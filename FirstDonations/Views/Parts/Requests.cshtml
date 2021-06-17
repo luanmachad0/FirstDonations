@@ -28,38 +28,40 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                <img src="~/img/@item.ImagePart"
-                                     width="80"
-                                     height="80"
-                                     style="border-radius: 50%;"
-                                     asp-append-version="true" />
-                            </td>
-                            <td class="pt-4">
-                                @Html.DisplayFor(modelItem => item.Status)
-                            </td>
-                            <td class="pt-4">
-                                @Html.DisplayFor(modelItem => item.InterestedTeamName)
-                            </td>
-                            <td class="pt-4">
-                                <a class="btn btn-dark" href="@Url.Action("PartOwnerProfile", "Profile", new { partOwnerId = item.InterestedTeamId })">Go to team profile</a>
-                            </td>
-                            @if (item.Status == "In progress")
-                            {
-                                <td class="pt-4">
-                                    <a href="@Url.Action("MarkAsSent", "Donations", new { Id = item.Id, InterestedTeamId = item.InterestedTeamId })" class="btn btn-primary">Mark as sent</a>
-                                    <a href="@Url.Action("DeclineRequest", "Parts", new { Id = item.Id,  InterestedTeamId = item.InterestedTeamId  })" class="btn btn-danger">Cancel donation</a>
+                            <tr>
+                                <td>
+                                    <img src="~/img/@item.ImagePart"
+                                         width="80"
+                                         height="80"
+                                         style="border-radius: 50%;"
+                                         asp-append-version="true" />
                                 </td>
-                            }
+                                <td class="pt-4">
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td class="pt-4">
+                                    @Html.DisplayFor(modelItem => item.InterestedTeamName)
+                                </td>
+                                <td class="pt-4">
+                                    <a class="btn btn-dark" href="@Url.Action("PartOwnerProfile", "Profile", new { partOwnerId = item.InterestedTeamId })">Go to team profile</a>
+                                </td>
+                                @if (item.Status == "In progress")
+                                {
+                                    <td class="pt-4">
+                                        <a href="@Url.Action("MarkAsSent", "Donations", new { Id = item.Id, InterestedTeamId = item.InterestedTeamId })" class="btn btn-primary">Mark as sent</a>
+                                        <a href="@Url.Action("DeclineRequest", "Parts", new { Id = item.Id,  InterestedTeamId = item.InterestedTeamId  })" class="btn btn-danger">Cancel donation</a>
+                                    </td>
+                                }
 
-                            @if (!ViewBag.IsPartInDonationAlready)
-                            {
-                                <td class="pt-4">
-                                    <a href="@Url.Action("AcceptRequest", "Parts", new { Id = item.Id, InterestedTeamId = item.InterestedTeamId })" class="btn btn-primary">Accept</a>
-                                    <a href="@Url.Action("DeclineRequest", "Parts", new { Id = item.Id,  InterestedTeamId = item.InterestedTeamId  })" class="btn btn-danger">Decline</a>
-                                </td>
-                            }
+                                @if (!ViewBag.IsPartInDonationAlready)
+                                {
+                                    <td class="pt-4">
+                                        @*<a href="@Url.Action("AcceptRequest", "Parts", new { Id = item.Id, InterestedTeamId = item.InterestedTeamId })" class="btn btn-primary">Accept</a>
+                                        <a href="@Url.Action("DeclineRequest", "Parts", new { Id = item.Id,  InterestedTeamId = item.InterestedTeamId  })" class="btn btn-danger">Decline</a>*@
+                                        <button class="btn-accept-request btn btn-primary" asp-action="AcceptRequest" data-id="@item.Id">Accept</button>
+                                        <button class="btn-decline-request btn btn-danger" asp-action="DeclineRequest" data-id="@item.Id">Decline</button>
+                                    </td>
+                                }
                             </tr>
                         }
                     </tbody>
@@ -71,3 +73,25 @@
         </div>
     </div>
 </div>
+
+<div id="modal" class="modal fade" role="dialog" />
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".btn-accept-request").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Parts/AcceptRequest?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+
+            $(".btn-decline-request").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Parts/DeclineRequest?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+}
