@@ -14,6 +14,8 @@ namespace FirstDonations.Models
 
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Part> Parts { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UsersNotifications> UsersNotifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

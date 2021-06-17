@@ -1,4 +1,4 @@
-﻿@model FirstDonations.Models.Part
+﻿@model FirstDonations.Models.Notification
 
 @{
     ViewData["Title"] = "Edit";
@@ -7,7 +7,7 @@
 
 <h1>Edit</h1>
 
-<h4>Part</h4>
+<h4>Notification</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,42 +15,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Area" class="control-label"></label>
-                <input asp-for="Area" class="form-control" />
-                <span asp-validation-for="Area" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Count" class="control-label"></label>
-                <input asp-for="Count" class="form-control" />
-                <span asp-validation-for="Count" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Conservation status</label>
-                <select id="ConservationStatus" asp-for="ConservationStatus" class="form-control">
-                    <option value="New">New</option>
-                    <option value="Little Used">Little Used</option>
-                    <option value="Used">Used</option>
-                    <option value="Spoiled">Spoiled</option>
-                </select>
-                <span asp-validation-for="ConservationStatus" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="OwnerTeam" />
-            <input type="hidden" asp-for="ProfileImage" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
