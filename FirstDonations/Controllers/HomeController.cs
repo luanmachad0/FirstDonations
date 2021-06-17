@@ -52,6 +52,33 @@ namespace FirstDonations.Controllers
             return View(await _context.Parts.Where(p => p.Status != "NotAvailable" && p.OwnerTeam != "").ToListAsync());
         }
 
+        [HttpPost]
+        public async Task<IActionResult> IndexSearch(string txtBusca)
+        {
+            var partsView = _context.Parts.Where(p => p.Status != "NotAvailable" && p.OwnerTeam != "" && p.Name.Contains(txtBusca)).ToList();
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.userId = userId;
+
+            var userDonations = await _context.Donations.Where(d => d.InterestedTeamId == userId).ToListAsync();
+
+            List<int> parts = new List<int>();
+
+            foreach (Donation donation in userDonations)
+            {
+                parts.Add(donation.PartId);
+            }
+
+            if (parts.Count == 0)
+            {
+                parts.Add(555);
+            }
+
+            ViewBag.userRequestsPartId = parts;
+
+            return View(partsView);
+        }
+
         public async Task<IActionResult> Ranking()
         {
             var users = await _authDbContext.Users.Where(u => u.TeamName != "Super User").OrderByDescending(u => u.NumberOfSuccessDonations).ToListAsync();
